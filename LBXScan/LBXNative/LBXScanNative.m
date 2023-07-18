@@ -240,31 +240,32 @@
     [_input.device lockForConfiguration:nil];
     
 
-    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+//    AVCaptureConnection *videoConnection = [self connectionWithMediaType:AVMediaTypeVideo fromConnections:[[self stillImageOutput] connections]];
+//
+//
+//    if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
+//        return;
+//    }
+//
+//    CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
+////     NSLog(@"max :%f",videoConnection.videoMaxScaleAndCropFactor);
+//
+//
+//    videoConnection.videoScaleAndCropFactor = scale;
     
-
-    if (scale < 1 || scale > videoConnection.videoMaxScaleAndCropFactor ) {
-        return;
-    }
-    
-    CGFloat zoom = scale / videoConnection.videoScaleAndCropFactor;
-//     NSLog(@"max :%f",videoConnection.videoMaxScaleAndCropFactor);
-
-    
-    videoConnection.videoScaleAndCropFactor = scale;
+    [_input.device rampToVideoZoomFactor:scale < 1 ? 1 : scale withRate:1];
     
     [_input.device unlockForConfiguration];
     
-    CGAffineTransform transform = _videoPreView.transform;
+//    CGAffineTransform transform = _videoPreView.transform;
     
-    _videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
+//    _videoPreView.transform = CGAffineTransformScale(transform, zoom, zoom);
     
     
 //    CGFloat y = 0;
 //    y = y + zoom > 1 ? zoom : -zoom;
 //    //移动
 //    _videoPreView.transform = CGAffineTransformTranslate(_videoPreView.transform, 0, y);
-
 }
 
 - (void)setScanRect:(CGRect)scanRect
